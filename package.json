@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "Shared ESLint configuration for the Decibel monorepo",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decibeltrade/eslint-config.git"
+  },
   "exports": {
     "./base": "./base.js",
     "./nextjs": "./nextjs.js",
     "./react-lib": "./react-lib.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
