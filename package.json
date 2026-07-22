@@ -2,11 +2,11 @@
   "name": "@decibeltrade/eslint-config",
   "version": "1.0.0",
   "description": "Shared ESLint configuration for the Decibel monorepo",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/decibeltrade/eslint-config.git"
   },
+  "type": "module",
   "exports": {
     "./base": "./base.js",
     "./nextjs": "./nextjs.js",

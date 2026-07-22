@@ -69,6 +69,7 @@ export const baseConfig = tseslint.config(
       "import/no-default-export": "off",
     },
   },
-  // This should come last since it disables any rules that might conflict with prettier
+  // This should come last since it disables any rules that might conflict with the formatter
+  // (oxfmt, which is prettier-compatible — eslint-config-prettier works for both)
   eslintConfigPrettier,
 );
