@@ -1,0 +1,11 @@
+// Shared oxlint config for React library packages (previously react-lib.js).
+{
+  "extends": ["./base.jsonc"],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "react"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "error",
+    "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never" }],
+  },
+}

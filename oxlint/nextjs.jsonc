@@ -1,0 +1,40 @@
+// Shared oxlint config for Next.js apps (previously nextjs.js).
+{
+  "extends": ["./base.jsonc"],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "react", "nextjs"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "error",
+    "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never" }],
+    "nextjs/no-img-element": "error",
+    // The previous ESLint nextjs config enforced only the four react rules
+    // above and @next/next/no-img-element — no react-recommended and no
+    // next-recommended. Disable the plugin-default extras that currently have
+    // pre-existing violations; revisit in a follow-up.
+    "react/no-children-prop": "off",
+    "nextjs/no-css-tags": "off",
+    "nextjs/no-html-link-for-pages": "off",
+  },
+  "overrides": [
+    {
+      // Next.js App Router file conventions require default exports.
+      "files": [
+        "**/src/app/**/layout.tsx",
+        "**/src/app/**/page.tsx",
+        "**/src/app/**/loading.tsx",
+        "**/src/app/**/not-found.tsx",
+        "**/src/app/**/error.tsx",
+        "**/src/app/**/global-error.tsx",
+        "**/src/app/**/template.tsx",
+        "**/src/app/**/default.tsx",
+        "**/src/app/manifest.ts",
+        "**/src/i18n/request.ts",
+        "**/src/middleware.ts",
+      ],
+      "rules": {
+        "import/no-default-export": "off",
+      },
+    },
+  ],
+}

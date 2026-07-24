@@ -1,33 +1,28 @@
 {
   "name": "@decibeltrade/eslint-config",
   "version": "1.0.0",
-  "description": "Shared ESLint configuration for the Decibel monorepo",
+  "description": "Shared oxlint configuration for the Decibel monorepo",
   "repository": {
     "type": "git",
     "url": "https://github.com/decibeltrade/eslint-config.git"
   },
   "type": "module",
   "exports": {
-    "./base": "./base.js",
-    "./nextjs": "./nextjs.js",
-    "./react-lib": "./react-lib.js"
+    "./oxlint/base": "./oxlint/base.jsonc",
+    "./oxlint/react-lib": "./oxlint/react-lib.jsonc",
+    "./oxlint/nextjs": "./oxlint/nextjs.jsonc"
   },
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "test": "vitest run"
+  },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.38.0",
-    "@next/eslint-plugin-next": "^16.2.6",
-    "@types/estree": "^1.0.6",
-    "eslint": "^9.38.0",
-    "eslint-config-next": "^16.2.6",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-turbo": "^2.5.8",
-    "typescript-eslint": "~8.58.2"
+    "oxlint": "^1.75.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "vitest": "^4.0.18"
   }
 }

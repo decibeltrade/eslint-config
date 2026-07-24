@@ -1,0 +1,142 @@
+// Shared oxlint base config for the Decibel monorepo.
+// Rule set derived 1:1 from the previous ESLint config (eslint recommended +
+// typescript-eslint strict/stylistic type-checked + import/simple-import-sort/
+// turbo/custom rules). Type-aware rules require running `oxlint --type-aware`.
+{
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "jsPlugins": [
+    "../plugins/decibel.mjs",
+    "../plugins/simple-import-sort.mjs",
+    "../plugins/turbo.mjs",
+  ],
+  "categories": {
+    "correctness": "error",
+  },
+  "ignorePatterns": ["**/node_modules/**", "**/dist/**"],
+  "rules": {
+    // ---- eslint (from eslint:recommended not in oxlint correctness) ----
+    "eslint/no-case-declarations": "error",
+    "eslint/no-empty": "error",
+    "eslint/no-fallthrough": "error",
+    "eslint/no-prototype-builtins": "error",
+    "eslint/no-regex-spaces": "error",
+    "eslint/no-var": "error",
+    "eslint/prefer-const": "error",
+    "eslint/prefer-rest-params": "error",
+    "eslint/prefer-spread": "error",
+    "eslint/no-array-constructor": "error",
+    "eslint/no-unused-expressions": "error",
+    "eslint/no-unused-vars": "error",
+    "eslint/no-useless-constructor": "error",
+    "eslint/no-empty-function": "error",
+    // ---- stylistic (explicit in previous config) ----
+    // NOTE: `curly` was configured in the old ESLint setup but silently
+    // disabled by eslint-config-prettier, so it was never enforced (~1100
+    // pre-existing violations). Enable + `--fix` in a follow-up if desired.
+    "eslint/object-shorthand": ["error", "always"],
+    // ---- typescript, non-type-aware (strict + stylistic) ----
+    "typescript/adjacent-overload-signatures": "error",
+    "typescript/array-type": ["error", { "default": "array-simple" }],
+    "typescript/ban-ts-comment": "error",
+    "typescript/ban-tslint-comment": "error",
+    "typescript/class-literal-property-style": "error",
+    "typescript/consistent-generic-constructors": "error",
+    "typescript/consistent-indexed-object-style": "error",
+    "typescript/consistent-type-assertions": "error",
+    "typescript/consistent-type-definitions": "error",
+    "typescript/no-confusing-non-null-assertion": "error",
+    "typescript/no-dynamic-delete": "error",
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-extraneous-class": "error",
+    "typescript/no-inferrable-types": "error",
+    "typescript/no-invalid-void-type": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-non-null-asserted-nullish-coalescing": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-require-imports": "error",
+    "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/no-unsafe-function-type": "error",
+    "typescript/prefer-for-of": "error",
+    "typescript/prefer-function-type": "error",
+    "typescript/prefer-literal-enum-member": "error",
+    "typescript/unified-signatures": "error",
+    // ---- typescript, type-aware (tsgolint; active with --type-aware) ----
+    "typescript/dot-notation": "error",
+    "typescript/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
+    // TODO(DCBL-3738 follow-up): tsgolint finds ~28 pre-existing deprecated-API
+    // usages that typescript-eslint missed. Re-enable after fixing them.
+    "typescript/no-deprecated": "off",
+    "typescript/no-mixed-enums": "error",
+    "typescript/no-unnecessary-boolean-literal-compare": "error",
+    "typescript/no-unnecessary-condition": "error",
+    "typescript/no-unnecessary-template-expression": "error",
+    "typescript/no-unnecessary-type-arguments": "error",
+    // DISABLED: tsgolint (typescript-go) disagrees with tsc about which
+    // assertions are necessary (e.g. zod v3/v4 nominal bridges in
+    // rwa-insights.handler.ts, object-literal fallbacks in massive.provider.ts).
+    // Auto-fixing to satisfy tsgolint would break `ts:check` under tsc.
+    "typescript/no-unnecessary-type-assertion": "off",
+    "typescript/no-unnecessary-type-parameters": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-enum-comparison": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/non-nullable-type-assertion-style": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-find": "error",
+    "typescript/prefer-includes": "error",
+    "typescript/prefer-optional-chain": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/prefer-reduce-type-parameter": "error",
+    "typescript/prefer-regexp-exec": "error",
+    "typescript/prefer-return-this-type": "error",
+    "typescript/related-getter-setter-pairs": "error",
+    "typescript/require-await": "error",
+    "typescript/restrict-plus-operands": "error",
+    // Match typescript-eslint strictTypeChecked's option (tsgolint's default
+    // "in-try-catch" additionally forbids `return await` outside try/catch).
+    "typescript/return-await": ["error", "error-handling-correctness-only"],
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    // Disabled in the previous ESLint config; keep disabled.
+    "typescript/no-misused-promises": "off",
+    "typescript/prefer-nullish-coalescing": "off",
+    "typescript/restrict-template-expressions": "off",
+    "typescript/unbound-method": "off",
+    // oxlint default-on (correctness) rules NOT in the previous ESLint set,
+    // disabled for 1:1 migration parity. Candidates to re-enable + fix in a
+    // follow-up (all had a handful of pre-existing violations).
+    "typescript/require-array-sort-compare": "off",
+    "eslint/no-useless-rename": "off",
+    "import/namespace": "off", // also false-positives on @sentry/nextjs re-exports
+    "oxc/only-used-in-recursion": "off", // false-positives on forwarded props
+    "unicorn/no-empty-file": "off",
+    "unicorn/no-new-array": "off",
+    "unicorn/no-useless-fallback-in-spread": "off",
+    "unicorn/no-useless-spread": "off",
+    // ---- import ----
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/no-default-export": "error",
+    // ---- JS plugins ----
+    "custom/no-get-account-resource": "error",
+    "custom/no-global-accounts-state": "error",
+    "custom/no-global-perp-engine-state": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "turbo/no-undeclared-env-vars": "error",
+  },
+  "overrides": [
+    {
+      // Config files (next.config.ts, vitest.config.ts, panda.config.ts, ...)
+      // follow tool conventions that require a default export.
+      "files": ["**/*.config.ts", "**/*.config.mts", "**/*.config.mjs", "**/*.config.js"],
+      "rules": {
+        "import/no-default-export": "off",
+      },
+    },
+  ],
+}
